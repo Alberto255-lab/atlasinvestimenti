@@ -4,8 +4,6 @@ const employee = JSON.parse(employeeRaw || '{}');
 const isDirection = employee.role === 'Direttore' || employee.role === 'Vice Direttore';
 document.getElementById('role-pill').textContent = employee.role || '—';
 
-document.getElementById('btn-training').addEventListener('click', () => window.location.href = 'allenamento.html');
-
 const loadingEl = document.getElementById('loading');
 const emptyEl = document.getElementById('empty');
 const gridEl = document.getElementById('cases-grid');
