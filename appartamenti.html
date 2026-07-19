@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subaffitti — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="shop.css">
+<link rel="stylesheet" href="subaffitti.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='shop.html'">← Negozio</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="shop-wrap">
+    <div class="shop-header reveal">
+      <div>
+        <p class="eyebrow">Subaffitti</p>
+        <h1 class="shop-username">Appartamenti disponibili</h1>
+      </div>
+    </div>
+
+    <!-- ---------- La mia prenotazione (se esiste) ---------- -->
+    <div id="my-booking-section" class="is-hidden" style="margin-bottom:2.5rem;">
+      <h2 class="section-title" style="text-align:left; font-size:1.2rem; margin-bottom:1rem;">La tua prenotazione</h2>
+      <div id="my-booking-card"></div>
+    </div>
+
+    <h2 class="section-title reveal" style="text-align:left; margin-top:1rem;">Appartamenti liberi</h2>
+
+    <div id="loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carichiamo gli appartamenti...</p>
+    </div>
+
+    <div id="empty" class="empty-state is-hidden">
+      <div class="empty-icon">🏠</div>
+      <p>Nessun appartamento disponibile al momento.</p>
+    </div>
+
+    <div id="apartments-grid" class="apartments-grid is-hidden"></div>
+  </main>
+
+  <div class="toast is-hidden" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-message">Fatto!</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="appartamenti.js"></script>
+</body>
+</html>

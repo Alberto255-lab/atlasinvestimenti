@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dettaglio causa — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="shop.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="avvocatura.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <span class="role-pill" id="role-pill">—</span>
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='avvocatura.html'">← Cause</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="shop-wrap">
+    <div class="case-detail-header reveal">
+      <p class="eyebrow" id="case-status-eyebrow">Causa</p>
+      <h1 class="shop-username" id="case-defendant-title">—</h1>
+    </div>
+
+    <div id="loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carichiamo la causa...</p>
+    </div>
+
+    <div id="case-content" class="case-detail-grid is-hidden">
+      <div class="col-main">
+
+        <div class="detail-card reveal">
+          <p class="detail-label">Data apertura</p>
+          <p class="detail-value" id="detail-date">—</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <p class="detail-label">Motivazione della causa</p>
+          <p class="detail-value" id="detail-description">—</p>
+        </div>
+
+        <div class="detail-card reveal">
+          <p class="detail-label">Motivi a favore</p>
+          <ul class="reason-list" id="reasons-for-list"></ul>
+          <div class="add-reason-row" id="add-reason-for-row">
+            <input class="input" type="text" id="reason-for-input" placeholder="Aggiungi un motivo a favore..." />
+            <button type="button" class="btn btn-primary" id="add-reason-for-btn">Aggiungi</button>
+          </div>
+        </div>
+
+        <div class="detail-card reveal">
+          <p class="detail-label">Motivi contro</p>
+          <ul class="reason-list" id="reasons-against-list"></ul>
+          <div class="add-reason-row" id="add-reason-against-row">
+            <input class="input" type="text" id="reason-against-input" placeholder="Aggiungi un motivo contro..." />
+            <button type="button" class="btn btn-primary" id="add-reason-against-btn">Aggiungi</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-side">
+
+        <div class="detail-card reveal">
+          <p class="detail-label">Stato causa</p>
+          <div id="close-case-block">
+            <button class="btn btn-ghost auth-full" id="btn-terminate">Termina causa</button>
+          </div>
+          <div id="closed-case-block" class="is-hidden">
+            <p class="detail-value" id="closed-outcome-text">—</p>
+          </div>
+          <div class="close-case-choice is-hidden" id="close-choice-row">
+            <button type="button" class="choice-btn win" id="btn-win">✓ Successo</button>
+            <button type="button" class="choice-btn lose" id="btn-lose">✕ Fallimento</button>
+          </div>
+        </div>
+
+        <div class="detail-card reveal">
+          <p class="detail-label">Intelligenza Artificiale</p>
+          <button class="btn btn-primary auth-full" id="btn-ask-ai" disabled>Ask to AI</button>
+          <p id="ai-hint" style="color:var(--grey); font-size:0.8rem; margin-top:0.6rem;">Serve almeno un documento nella libreria legale per attivare l'AI.</p>
+          <div id="ai-response" class="ai-response-box is-hidden"></div>
+          <p class="error-text is-hidden" id="ai-error"></p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <div class="toast is-hidden" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-message">Fatto!</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="causa.js"></script>
+</body>
+</html>

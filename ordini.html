@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordini — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="shop.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="ordini.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <span class="role-pill" id="role-pill">—</span>
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='dashboard.html'">← Dashboard</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="shop-wrap">
+    <div class="shop-header reveal">
+      <div>
+        <p class="eyebrow">Notifiche</p>
+        <h1 class="shop-username">Ordini ricevuti</h1>
+      </div>
+    </div>
+
+    <div id="orders-loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carichiamo gli ordini...</p>
+    </div>
+
+    <div id="orders-empty" class="empty-state is-hidden">
+      <div class="empty-icon">📭</div>
+      <p>Nessun ordine ricevuto per ora.</p>
+    </div>
+
+    <div id="orders-list" class="orders-list is-hidden"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="ordini.js"></script>
+</body>
+</html>

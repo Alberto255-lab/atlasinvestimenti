@@ -1,0 +1,85 @@
+.dash-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+.dash-header { margin-bottom: 3rem; }
+.dash-username { font-size: 2.1rem; margin: 0.5rem 0 0.6rem; }
+.dash-sub { color: var(--grey); font-size: 0.95rem; }
+
+.role-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  color: var(--blue-1);
+  border: 1px solid rgba(79,179,255,0.3);
+  background: rgba(79,179,255,0.06);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.3rem;
+}
+
+.menu-card {
+  background: linear-gradient(160deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 1.8rem;
+  position: relative;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  cursor: pointer;
+  text-align: left;
+  color: var(--white);
+  font-family: var(--font-body);
+  display: block;
+  width: 100%;
+}
+.menu-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(79,179,255,0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+.menu-icon { font-size: 1.9rem; margin-bottom: 1rem; }
+.menu-name { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.5rem; }
+.menu-desc { color: var(--grey); font-size: 0.88rem; line-height: 1.5; margin-bottom: 1.1rem; }
+.menu-arrow {
+  color: var(--blue-1);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.25s ease;
+}
+.menu-card:hover .menu-arrow { gap: 0.7rem; }
+
+.menu-card.is-locked {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.menu-card.is-locked:hover {
+  transform: none;
+  border-color: var(--line);
+  box-shadow: none;
+}
+.menu-card.is-locked .menu-arrow { color: var(--grey); }
+
+.dash-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 3rem;
+  padding: 1rem 1.4rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--line);
+  color: var(--grey);
+  font-size: 0.85rem;
+}
+.notice-icon { font-size: 1.1rem; flex-shrink: 0; }

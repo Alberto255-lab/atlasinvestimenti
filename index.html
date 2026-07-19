@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" id="btn-dipendente">Dipendenti</button>
+        <button class="btn btn-primary btn-sm" id="btn-cliente">Accedi</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow reveal">📍 LibertyBay</p>
+    <h1 class="hero-title reveal" style="--d:0.08s">
+      Atlas <span class="gradient-text">Investimenti</span>
+    </h1>
+    <p class="tagline reveal" style="--d:0.18s">
+      Sei settori. Un'unica visione. Consulenza, edilizia, informatica, grafica
+      — costruiamo il tuo progetto con la solidità di un gruppo che cresce ogni giorno.
+    </p>
+
+    <div class="cta-row reveal" style="--d:0.28s">
+      <button class="btn btn-primary btn-lg" id="btn-cliente-2">
+        <span>Scopri i prodotti</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn btn-ghost btn-lg" id="btn-dipendente-2">Area Dipendenti</button>
+    </div>
+
+    <div class="stats-row reveal" style="--d:0.4s">
+      <div class="stat">
+        <span class="stat-num" data-target="4">0</span>
+        <span class="stat-label">Reparti attivi</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="6">0</span>
+        <span class="stat-label">Aree di business</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num" data-target="100">0</span>
+        <span class="stat-label">% Made in LibertyBay</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint reveal" style="--d:0.55s">
+      <span>Esplora i reparti</span>
+      <div class="scroll-line"><div class="scroll-dot"></div></div>
+    </div>
+  </header>
+
+  <section class="departments" id="departments">
+    <p class="eyebrow center reveal">I nostri reparti</p>
+    <h2 class="section-title center reveal">Un gruppo, sei competenze</h2>
+    <p class="section-sub center reveal">Ogni reparto è un centro di eccellenza autonomo, unito da un'unica direzione.</p>
+
+    <div class="dept-grid">
+      <div class="dept-card reveal" style="--d:0.05s" data-tilt>
+        <div class="dept-icon">🧭</div>
+        <span class="badge badge-active">Attivo</span>
+        <h3 class="dept-name">Consulenze</h3>
+        <p class="dept-desc">Strategia e advisory su misura per far crescere la tua attività.</p>
+      </div>
+      <div class="dept-card reveal" style="--d:0.1s" data-tilt>
+        <div class="dept-icon">🏗️</div>
+        <span class="badge badge-active">Attivo</span>
+        <h3 class="dept-name">Edile</h3>
+        <p class="dept-desc">Costruzioni e ristrutturazioni con standard qualitativi elevati.</p>
+      </div>
+      <div class="dept-card reveal" style="--d:0.15s" data-tilt>
+        <div class="dept-icon">💻</div>
+        <span class="badge badge-active">Attivo</span>
+        <h3 class="dept-name">Informatica</h3>
+        <p class="dept-desc">Soluzioni digitali, software e infrastrutture su misura.</p>
+      </div>
+      <div class="dept-card reveal" style="--d:0.2s" data-tilt>
+        <div class="dept-icon">🎨</div>
+        <span class="badge badge-active">Attivo</span>
+        <h3 class="dept-name">Grafica</h3>
+        <p class="dept-desc">Identità visiva e design che lasciano il segno.</p>
+      </div>
+      <div class="dept-card is-soon reveal" style="--d:0.25s" data-tilt>
+        <div class="dept-icon">⚖️</div>
+        <span class="badge badge-soon">In arrivo</span>
+        <h3 class="dept-name">Legale</h3>
+        <p class="dept-desc">Tutela e consulenza legale per privati e aziende.</p>
+      </div>
+      <div class="dept-card is-soon reveal" style="--d:0.3s" data-tilt>
+        <div class="dept-icon">📰</div>
+        <span class="badge badge-soon">In arrivo</span>
+        <h3 class="dept-name">Editoriale</h3>
+        <p class="dept-desc">Contenuti e comunicazione per raccontare il tuo brand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band reveal">
+    <h2>Pronto a lavorare con noi?</h2>
+    <p>Accedi come cliente per sfogliare il catalogo, oppure candidati a uno dei nostri reparti.</p>
+    <button class="btn btn-primary btn-lg" id="btn-cliente-3">Entra ora</button>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Atlas Investimenti Group — LibertyBay</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

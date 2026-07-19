@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il tuo spazio — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="shop.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" id="btn-logout">Esci</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="shop-wrap">
+    <div class="shop-header reveal">
+      <div>
+        <p class="eyebrow">Bentornato</p>
+        <h1 class="shop-username" id="username-display">—</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost btn-lg" onclick="window.location.href='appartamenti.html'">🏠 Subaffitti</button>
+        <button class="btn btn-ghost btn-lg cart-pill" id="btn-cart">
+          🛒 Carrello <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="btn btn-primary btn-lg" id="btn-apply">
+          <span>Candidati ora</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <h2 class="section-title reveal" style="text-align:left; margin-top:2.5rem;">Catalogo prodotti</h2>
+
+    <div id="products-loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carichiamo il catalogo...</p>
+    </div>
+
+    <div id="products-empty" class="empty-state is-hidden">
+      <div class="empty-icon">📦</div>
+      <p>Nessun prodotto disponibile al momento. Torna a trovarci presto.</p>
+    </div>
+
+    <div class="products-grid is-hidden" id="products-grid"></div>
+  </main>
+
+  <!-- ---------- Modale carrello ---------- -->
+  <div class="modal-overlay is-hidden" id="cart-modal">
+    <div class="modal-card cart-card">
+      <button type="button" class="modal-close" id="cart-close">✕</button>
+      <p class="eyebrow">Il tuo carrello</p>
+      <h2 class="auth-title" style="font-size:1.6rem;">Riepilogo ordine</h2>
+
+      <div id="cart-empty" class="empty-state" style="padding:2rem 0;">
+        <div class="empty-icon">🛒</div>
+        <p>Il carrello è vuoto. Aggiungi qualche prodotto dal catalogo.</p>
+      </div>
+
+      <div id="cart-items"></div>
+
+      <div class="cart-total is-hidden" id="cart-total-row">
+        <span>Totale</span>
+        <span id="cart-total-amount">€ 0.00</span>
+      </div>
+
+      <p class="error-text is-hidden" id="cart-error"></p>
+
+      <button class="btn btn-primary btn-lg auth-full is-hidden" id="cart-checkout">
+        <span>Acquista tutto</span>
+        <span class="spinner is-hidden"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ---------- Modale candidatura ---------- -->
+  <div class="modal-overlay is-hidden" id="apply-modal">
+    <form class="modal-card apply-card" id="apply-form">
+      <button type="button" class="modal-close" id="apply-close">✕</button>
+      <p class="eyebrow">Candidatura</p>
+      <h2 class="auth-title" style="font-size:1.6rem;">Unisciti al team</h2>
+
+      <label class="field-label">Settore per cui ti vuoi candidare</label>
+      <select class="input" id="apply-sector" required>
+        <option value="" disabled selected>Seleziona un settore</option>
+        <option value="Consulenze">Consulenze</option>
+        <option value="Edile">Edile</option>
+        <option value="Informatica">Informatica</option>
+        <option value="Grafica">Grafica</option>
+        <option value="Legale">Legale</option>
+        <option value="Editoriale">Editoriale</option>
+      </select>
+
+      <label class="field-label">Perché ti stai candidando?</label>
+      <textarea class="input" id="apply-motivation" rows="3" required></textarea>
+
+      <label class="field-label">Hai già avuto esperienze in questo settore?</label>
+      <select class="input" id="apply-has-experience">
+        <option value="no">No</option>
+        <option value="si">Sì</option>
+      </select>
+
+      <div id="apply-experience-wrap" class="is-hidden">
+        <label class="field-label">Quali?</label>
+        <textarea class="input" id="apply-experience-details" rows="2"></textarea>
+      </div>
+
+      <p class="error-text is-hidden" id="apply-error"></p>
+      <p class="success-note is-hidden" id="apply-success">Candidatura inviata! Ti contatteremo su Telegram.</p>
+
+      <button class="btn btn-primary btn-lg auth-full" type="submit" id="apply-submit">
+        <span>Invia candidatura</span>
+        <span class="spinner is-hidden"></span>
+      </button>
+    </form>
+  </div>
+
+  <div class="toast is-hidden" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-message">Acquisto effettuato!</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="shop.js"></script>
+</body>
+</html>

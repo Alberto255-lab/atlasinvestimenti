@@ -1,0 +1,22 @@
+.product-card { position: relative; }
+
+.product-manage-bar {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0 1.4rem 1.4rem;
+  margin-top: -0.6rem;
+}
+.icon-btn {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--line);
+  color: var(--grey);
+  padding: 0.55rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.icon-btn:hover { color: var(--white); border-color: var(--blue-1); }
+.icon-btn.danger:hover { color: #ff8a8d; border-color: #e5484d; background: rgba(229,72,77,0.06); }

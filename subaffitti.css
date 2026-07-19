@@ -1,0 +1,118 @@
+.apartments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.apartment-card {
+  background: linear-gradient(160deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.apartment-card:hover { transform: translateY(-4px); }
+
+.apartment-name { font-family: var(--font-display); font-size: 1.35rem; }
+.apartment-meta { color: var(--grey); font-size: 0.85rem; }
+.apartment-price { color: var(--blue-1); font-weight: 700; font-size: 1.05rem; margin-top: 0.2rem; }
+
+.apt-status-badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+.apt-status-free { color: var(--success); border: 1px solid rgba(46,204,113,0.35); background: rgba(46,204,113,0.06); }
+.apt-status-booked { color: #ff8a8d; border: 1px solid rgba(229,72,77,0.35); background: rgba(229,72,77,0.06); }
+.apt-status-disabled { color: var(--grey); border: 1px solid var(--line); }
+
+.apartment-actions { display: flex; gap: 0.6rem; margin-top: 0.6rem; flex-wrap: wrap; }
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--grey);
+  margin-top: 0.4rem;
+}
+.toggle-switch input { display: none; }
+.toggle-track {
+  width: 38px; height: 20px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--white);
+  transition: transform 0.2s ease;
+}
+.toggle-switch input:checked + .toggle-track { background: var(--blue-1); }
+.toggle-switch input:checked + .toggle-track::after { transform: translateX(18px); }
+
+/* ---------- Booking timer (usato anche lato cliente e in Ordini) ---------- */
+.rental-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--blue-1);
+  font-weight: 600;
+}
+
+/* ---------- Bottone Prenota (ristilizzato) ---------- */
+.book-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, var(--blue-1), var(--blue-2));
+  color: #04070d;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.book-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+}
+.book-btn:hover::before { left: 130%; }
+.book-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(79,179,255,0.32);
+}
+.book-btn.is-booked {
+  background: rgba(255,255,255,0.04);
+  color: var(--grey);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.book-btn.is-booked::before { display: none; }
+.book-btn:disabled { pointer-events: none; }

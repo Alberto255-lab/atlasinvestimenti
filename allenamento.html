@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allenamento Avvocato — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="shop.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="avvocatura.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <span class="role-pill" id="role-pill">—</span>
+        <button class="btn btn-ghost btn-sm" id="btn-history">📋 Cronologia</button>
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='avvocatura.html'">← Avvocatura</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="auth-wrap">
+    <div class="auth-card reveal" style="max-width:560px;">
+
+      <!-- STEP: bloccato (nessun documento) -->
+      <div class="auth-step is-hidden" id="step-locked">
+        <div class="lock-icon">🔒</div>
+        <p class="eyebrow">Allenamento non disponibile</p>
+        <h1 class="auth-title" style="font-size:1.6rem;">Serve almeno un documento</h1>
+        <p class="auth-sub">L'allenamento si basa esclusivamente sui documenti legali caricati dalla Direzione. Al momento la libreria è vuota.</p>
+        <button class="btn btn-ghost btn-lg auth-full" onclick="window.location.href='avvocatura.html'">Torna ad Avvocatura</button>
+      </div>
+
+      <!-- STEP: scelta tipo -->
+      <div class="auth-step is-hidden" id="step-choice">
+        <p class="eyebrow">Allenamento Avvocato</p>
+        <h1 class="auth-title">Scegli la modalità</h1>
+        <p class="auth-sub">Metti alla prova le tue capacità di difesa su un caso simulato.</p>
+
+        <div class="training-choice-grid">
+          <div class="training-choice-card" id="choose-written">
+            <div class="training-choice-icon">✍️</div>
+            <strong>Scritto</strong>
+            <p style="color:var(--grey); font-size:0.85rem; margin-top:0.4rem;">Scrivi la tua soluzione, l'AI ti darà un punteggio.</p>
+          </div>
+          <div class="training-choice-card" id="choose-multiple">
+            <div class="training-choice-icon">☑️</div>
+            <strong>Scelta multipla</strong>
+            <p style="color:var(--grey); font-size:0.85rem; margin-top:0.4rem;">Scegli la risposta corretta tra 4 opzioni.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP: scritto -->
+      <form class="auth-step is-hidden" id="step-written">
+        <button type="button" class="back-btn" data-back>← Indietro</button>
+        <p class="eyebrow">Allenamento scritto</p>
+        <h1 class="auth-title" style="font-size:1.5rem;">Il caso</h1>
+        <p class="detail-value" id="written-case-text" style="margin-bottom:1.4rem;">—</p>
+
+        <label class="field-label">La tua risoluzione</label>
+        <textarea class="input" id="written-answer" rows="6" required></textarea>
+
+        <p class="error-text is-hidden" id="written-error"></p>
+
+        <button class="btn btn-primary btn-lg auth-full" type="submit" id="written-submit">
+          <span>Invia risoluzione</span>
+          <span class="spinner is-hidden"></span>
+        </button>
+      </form>
+
+      <!-- STEP: scelta multipla -->
+      <div class="auth-step is-hidden" id="step-mc">
+        <button type="button" class="back-btn" data-back>← Indietro</button>
+        <p class="eyebrow">Scelta multipla</p>
+        <h1 class="auth-title" style="font-size:1.5rem;">Il caso</h1>
+        <p class="detail-value" id="mc-case-text" style="margin-bottom:1.4rem;">—</p>
+
+        <div id="mc-options"></div>
+
+        <button class="btn btn-primary btn-lg auth-full" id="mc-submit" disabled>Conferma risposta</button>
+      </div>
+
+      <!-- STEP: risultato -->
+      <div class="auth-step is-hidden" id="step-result">
+        <p class="eyebrow">Risultato</p>
+        <h1 class="auth-title">Punteggio ottenuto</h1>
+        <div class="score-badge" id="result-score">—</div>
+        <p class="auth-sub" id="result-feedback">—</p>
+        <button class="btn btn-primary btn-lg auth-full" id="btn-retry">Fai un altro allenamento</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ---------- Modale cronologia (staccata, appare solo al click) ---------- -->
+  <div class="modal-overlay is-hidden" id="history-modal">
+    <div class="modal-card apply-card">
+      <button type="button" class="modal-close" id="history-close">✕</button>
+      <p class="eyebrow">Cronologia</p>
+      <h2 class="auth-title" style="font-size:1.4rem; margin-bottom:1rem;">I tuoi allenamenti</h2>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="allenamento.js"></script>
+</body>
+</html>

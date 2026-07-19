@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Area Dipendenti — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='index.html'">← Home</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="auth-wrap">
+    <div class="auth-card reveal">
+
+      <!-- STEP: login -->
+      <form class="auth-step" id="step-login">
+        <div class="lock-icon">🔒</div>
+        <p class="eyebrow">Area Riservata</p>
+        <h1 class="auth-title">Accesso Dipendenti</h1>
+        <p class="auth-sub">Inserisci le credenziali fornite dalla direzione per accedere alla dashboard.</p>
+
+        <label class="field-label">Nickname</label>
+        <input class="input" type="text" id="login-nickname" required autocomplete="username" />
+
+        <label class="field-label">Password</label>
+        <input class="input" type="password" id="login-password" required autocomplete="current-password" />
+
+        <p class="error-text is-hidden" id="login-error"></p>
+
+        <button class="btn btn-primary btn-lg auth-full" type="submit" id="login-submit">
+          <span>Accedi</span>
+          <span class="spinner is-hidden"></span>
+        </button>
+
+        <p class="restricted-note">Accesso consentito solo al personale autorizzato.</p>
+      </form>
+
+      <!-- STEP: successo -->
+      <div class="auth-step is-hidden" id="step-success">
+        <div class="success-icon">✓</div>
+        <h1 class="auth-title">Accesso confermato</h1>
+        <p class="auth-sub" id="success-message">Bentornato, ti stiamo reindirizzando...</p>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="dipendente.js"></script>
+</body>
+</html>

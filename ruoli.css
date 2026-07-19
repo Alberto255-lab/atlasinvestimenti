@@ -1,0 +1,32 @@
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+.role-card {
+  background: linear-gradient(160deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.role-card:hover { border-color: rgba(79,179,255,0.25); transform: translateY(-3px); }
+
+.role-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.role-card-name { font-family: var(--font-display); font-size: 1.3rem; }
+
+.system-tag {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  color: var(--grey);
+  border: 1px solid var(--line);
+}

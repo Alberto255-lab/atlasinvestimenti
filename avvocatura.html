@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avvocatura — Atlas Investimenti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="shop.css">
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="avvocatura.css">
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grain"></div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.jpg" alt="Atlas" class="brand-logo" />
+        <span class="brand-name">Atlas Investimenti</span>
+      </a>
+      <div class="nav-actions">
+        <span class="role-pill" id="role-pill">—</span>
+        <button class="btn btn-ghost btn-sm" onclick="window.location.href='dashboard.html'">← Dashboard</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="shop-wrap">
+    <div class="shop-header reveal">
+      <div>
+        <p class="eyebrow">Avvocatura</p>
+        <h1 class="shop-username">Cause</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-ghost btn-lg" id="btn-documents">📄 Documenti legali</button>
+        <button class="btn btn-ghost btn-lg" id="btn-training">Allenamento Avvocato</button>
+        <button class="btn btn-primary btn-lg" id="btn-add-case">
+          <span>Aggiungi causa</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Carichiamo le cause...</p>
+    </div>
+
+    <div id="empty" class="empty-state is-hidden">
+      <div class="empty-icon">⚖️</div>
+      <p>Nessuna causa ancora aperta.</p>
+    </div>
+
+    <div id="cases-grid" class="cases-grid is-hidden"></div>
+  </main>
+
+  <!-- ---------- Modale nuova causa ---------- -->
+  <div class="modal-overlay is-hidden" id="case-modal">
+    <form class="modal-card apply-card" id="case-form">
+      <button type="button" class="modal-close" id="case-close">✕</button>
+      <p class="eyebrow">Nuova causa</p>
+      <h2 class="auth-title" style="font-size:1.6rem;">Aggiungi causa</h2>
+
+      <label class="field-label">Nome dell'imputato</label>
+      <input class="input" type="text" id="case-defendant" required />
+
+      <label class="field-label">Descrizione della causa</label>
+      <textarea class="input" id="case-description" rows="4" required></textarea>
+
+      <p class="error-text is-hidden" id="case-error"></p>
+
+      <button class="btn btn-primary btn-lg auth-full" type="submit" id="case-submit">
+        <span>Crea causa</span>
+        <span class="spinner is-hidden"></span>
+      </button>
+    </form>
+  </div>
+
+  <!-- ---------- Modale documenti legali globali ---------- -->
+  <div class="modal-overlay is-hidden" id="documents-modal">
+    <div class="modal-card apply-card">
+      <button type="button" class="modal-close" id="documents-close">✕</button>
+      <p class="eyebrow">Libreria documenti</p>
+      <h2 class="auth-title" style="font-size:1.6rem;">Documenti legali</h2>
+      <p class="auth-sub">Usati dall'AI per risolvere le cause e per generare gli allenamenti. Non sono legati a nessuna causa specifica.</p>
+
+      <ul class="doc-list" id="global-doc-list"></ul>
+
+      <div id="add-global-doc-block" class="is-hidden" style="margin-top:1rem;">
+        <label class="field-label">Titolo documento</label>
+        <input class="input" type="text" id="gdoc-title" placeholder="es. Codice interno dispute commerciali" />
+        <label class="field-label">Link Google Docs</label>
+        <input class="input" type="url" id="gdoc-url" placeholder="https://docs.google.com/document/d/..." />
+        <button type="button" class="btn btn-primary auth-full" id="add-gdoc-btn">Carica documento</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast is-hidden" id="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-message">Fatto!</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="avvocatura.js"></script>
+</body>
+</html>
