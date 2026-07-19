@@ -4,6 +4,15 @@ const employee = JSON.parse(employeeRaw || '{}');
 const isDirection = employee.role === 'Direttore' || employee.role === 'Vice Direttore';
 document.getElementById('role-pill').textContent = employee.role || '—';
 
+if (!isDirection && !(employee.settori || []).includes('Legale')) {
+  document.querySelector('.shop-wrap').innerHTML = `
+    <div class="empty-state" style="padding-top:4rem;">
+      <div class="empty-icon">🔒</div>
+      <p>Questa sezione è riservata al reparto Legale e alla Direzione.</p>
+    </div>`;
+  throw new Error('access denied');
+}
+
 const loadingEl = document.getElementById('loading');
 const emptyEl = document.getElementById('empty');
 const gridEl = document.getElementById('cases-grid');

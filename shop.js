@@ -10,7 +10,12 @@ document.getElementById('btn-logout').addEventListener('click', () => {
 
 const loadingEl = document.getElementById('products-loading');
 const emptyEl = document.getElementById('products-empty');
-const gridEl = document.getElementById('products-grid');
+const layoutEl = document.getElementById('shop-layout');
+const sidebarNavEl = document.getElementById('sidebar-nav');
+const sectionsEl = document.getElementById('shop-sections');
+
+// Ordine fisso dei reparti (coerente con la home page)
+const DEPARTMENTS = ['Investimenti', 'Edile', 'Informatica', 'Grafica', 'Legale', 'Editoriale'];
 
 async function loadProducts() {
   const { data, error } = await supabaseClient.from('products').select('*').order('created_at', { ascending: false });
@@ -21,13 +26,66 @@ async function loadProducts() {
     return;
   }
 
-  gridEl.classList.remove('is-hidden');
-  gridEl.innerHTML = data.map(productCardHtml).join('');
+  layoutEl.classList.remove('is-hidden');
+
+  // Raggruppo i prodotti per reparto (categoria)
+  const byDept = {};
+  DEPARTMENTS.forEach(d => byDept[d] = []);
+  data.forEach(p => {
+    if (!byDept[p.category]) byDept[p.category] = [];
+    byDept[p.category].push(p);
+  });
+
+  // Sidebar di navigazione
+  sidebarNavEl.innerHTML = DEPARTMENTS.map(d => `<a href="#dept-${slug(d)}" class="sidebar-link" data-dept="${d}">${d}</a>`).join('');
+
+  // Sezioni prodotti, una per reparto
+  sectionsEl.innerHTML = DEPARTMENTS.map(dept => {
+    const products = byDept[dept] || [];
+    const content = products.length
+      ? `<div class="products-grid">${products.map(productCardHtml).join('')}</div>`
+      : `<div class="dept-section-empty">Nessun prodotto disponibile in questo reparto al momento.</div>`;
+    return `
+      <section class="dept-section" id="dept-${slug(dept)}">
+        <h3 class="dept-section-title">${dept}</h3>
+        ${content}
+      </section>
+    `;
+  }).join('');
 
   data.forEach(p => {
     if (p.price_on_request) return; // bottone disabilitato, niente da collegare
-    document.getElementById(`buy-${p.id}`).addEventListener('click', () => handleAddToCart(p));
+    document.getElementById(`buy-${p.id}`)?.addEventListener('click', () => handleAddToCart(p));
   });
+
+  // Click sidebar: scroll fluido alla sezione
+  sidebarNavEl.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector(link.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  setupScrollSpy();
+}
+
+function slug(text) {
+  return text.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Evidenzia nella sidebar la sezione attualmente visibile durante lo scroll
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('.dept-section');
+  const links = document.querySelectorAll('.sidebar-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
+      }
+    });
+  }, { rootMargin: '-100px 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
 }
 
 function productCardHtml(p) {

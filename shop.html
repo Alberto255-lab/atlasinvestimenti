@@ -60,7 +60,13 @@
       <p>Nessun prodotto disponibile al momento. Torna a trovarci presto.</p>
     </div>
 
-    <div class="products-grid is-hidden" id="products-grid"></div>
+    <div class="shop-layout is-hidden" id="shop-layout">
+      <aside class="shop-sidebar">
+        <p class="sidebar-label">Reparti</p>
+        <nav class="sidebar-nav" id="sidebar-nav"></nav>
+      </aside>
+      <div class="shop-sections" id="shop-sections"></div>
+    </div>
   </main>
 
   <!-- ---------- Modale carrello ---------- -->
@@ -101,7 +107,7 @@
       <label class="field-label">Settore per cui ti vuoi candidare</label>
       <select class="input" id="apply-sector" required>
         <option value="" disabled selected>Seleziona un settore</option>
-        <option value="Consulenze">Consulenze</option>
+        <option value="Investimenti">Investimenti</option>
         <option value="Edile">Edile</option>
         <option value="Informatica">Informatica</option>
         <option value="Grafica">Grafica</option>

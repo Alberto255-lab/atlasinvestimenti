@@ -6,6 +6,9 @@ if (!employeeRaw) {
 const employee = JSON.parse(employeeRaw || '{}');
 
 const isDirection = (role) => role === 'Direttore' || role === 'Vice Direttore';
+const direzione = isDirection(employee.role);
+const settori = employee.settori || [];
+const hasSettore = (nome) => settori.includes(nome);
 
 document.getElementById('username-display').textContent = employee.nickname || 'Dipendente';
 document.getElementById('role-pill').textContent = employee.role || '—';
@@ -16,6 +19,8 @@ document.getElementById('btn-logout').addEventListener('click', () => {
 });
 
 // ---------- Menu definition ----------
+// Regola: Direttore/Vice Direttore vedono tutto. Gli altri dipendenti
+// vedono sempre "Ordini", più le sezioni specifiche del loro reparto.
 const menus = [
   {
     key: 'prodotti',
@@ -23,7 +28,7 @@ const menus = [
     name: 'Prodotti',
     desc: 'Visualizza il catalogo. Aggiunta e modifica riservate a Direzione.',
     href: 'prodotti.html',
-    available: true,
+    available: direzione,
   },
   {
     key: 'ordini',
@@ -31,7 +36,7 @@ const menus = [
     name: 'Ordini',
     desc: 'Notifiche degli acquisti effettuati dai clienti.',
     href: 'ordini.html',
-    available: true,
+    available: true, // visibile a tutti i dipendenti, di qualunque reparto
   },
   {
     key: 'prenotazioni',
@@ -39,7 +44,7 @@ const menus = [
     name: 'Prenotazioni Subaffitti',
     desc: 'Gestisci le richieste di affitto dei clienti.',
     href: 'prenotazioni.html',
-    available: true,
+    available: direzione || hasSettore('Subaffitti'),
   },
   {
     key: 'candidature',
@@ -47,7 +52,7 @@ const menus = [
     name: 'Candidature',
     desc: 'Candidature ricevute dai clienti per unirsi al team.',
     href: 'candidature.html',
-    available: isDirection(employee.role),
+    available: direzione,
   },
   {
     key: 'dipendenti',
@@ -55,7 +60,7 @@ const menus = [
     name: 'Dipendenti',
     desc: 'Crea e gestisci le credenziali del personale.',
     href: 'dipendenti.html',
-    available: isDirection(employee.role),
+    available: direzione,
   },
   {
     key: 'subaffitti',
@@ -63,7 +68,7 @@ const menus = [
     name: 'Subaffitti',
     desc: 'Gestisci appartamenti disponibili per l\'affitto.',
     href: 'subaffitti.html',
-    available: isDirection(employee.role),
+    available: direzione,
   },
   {
     key: 'ruoli',
@@ -71,15 +76,15 @@ const menus = [
     name: 'Ruoli',
     desc: 'Crea e organizza i ruoli aziendali.',
     href: 'ruoli.html',
-    available: isDirection(employee.role),
+    available: direzione,
   },
   {
     key: 'avvocatura',
     icon: '⚖️',
     name: 'Avvocatura',
-    desc: 'Cause, documenti legali e allenamento avvocati.',
+    desc: 'Cause e documenti legali.',
     href: 'avvocatura.html',
-    available: true,
+    available: direzione || hasSettore('Legale'),
   },
 ];
 

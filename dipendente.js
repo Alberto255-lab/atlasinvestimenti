@@ -51,7 +51,7 @@ document.getElementById('step-login').addEventListener('submit', async (e) => {
   if (error) return showError(errorEl, 'Errore di connessione. Riprova.');
   if (!data.ok) return showError(errorEl, data.error);
 
-  saveEmployeeSession({ id: data.id, nickname: data.nickname, role: data.role });
+  saveEmployeeSession({ id: data.id, nickname: data.nickname, role: data.role, settori: data.settori || [] });
 
   document.getElementById('success-message').textContent = `Bentornato, ${data.nickname} (${data.role})`;
   showStep('success');

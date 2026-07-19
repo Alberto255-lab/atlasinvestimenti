@@ -1,9 +1,7 @@
-// ---------- Session guard ----------
 const employeeRaw = localStorage.getItem('atlas_employee');
 if (!employeeRaw) window.location.href = 'dipendente.html';
 const employee = JSON.parse(employeeRaw || '{}');
 const isDirection = employee.role === 'Direttore' || employee.role === 'Vice Direttore';
-
 document.getElementById('role-pill').textContent = employee.role || '—';
 
 if (!isDirection) {
@@ -16,7 +14,6 @@ if (!isDirection) {
 }
 
 let rolesCache = [];
-
 const loadingEl = document.getElementById('loading');
 const emptyEl = document.getElementById('empty');
 const listEl = document.getElementById('employees-list');
@@ -52,7 +49,7 @@ async function loadEmployees() {
 
 function employeeCardHtml(e) {
   const initials = e.nickname.slice(0, 2).toUpperCase();
-  const canDelete = e.nickname !== 'NotAlbe'; // protezione utente default
+  const canDelete = e.nickname !== 'NotAlbe';
   return `
     <div class="employee-card reveal">
       <div class="employee-main">
@@ -64,6 +61,7 @@ function employeeCardHtml(e) {
       </div>
       <div class="employee-actions">
         <span class="role-badge">${e.role_name || 'Nessun ruolo'}</span>
+        ${(e.settori || []).map(s => `<span class="settore-badge">${s}</span>`).join('')}
         <button type="button" class="icon-btn" id="edit-${e.id}">Modifica</button>
         ${canDelete ? `<button type="button" class="icon-btn danger" id="del-${e.id}">Elimina</button>` : `<button type="button" class="icon-btn" id="del-${e.id}" disabled style="opacity:0.4;cursor:not-allowed;">Protetto</button>`}
       </div>
@@ -71,7 +69,6 @@ function employeeCardHtml(e) {
   `;
 }
 
-// ---------- Toast ----------
 function showToast(message) {
   const toast = document.getElementById('toast');
   document.getElementById('toast-message').textContent = message;
@@ -83,7 +80,6 @@ function showToast(message) {
   }, 3000);
 }
 
-// ---------- Add / Edit modal ----------
 const modal = document.getElementById('employee-modal');
 const form = document.getElementById('employee-form');
 const modalTitle = document.getElementById('employee-modal-title');
@@ -100,6 +96,7 @@ modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList
 function openAddModal() {
   form.reset();
   document.getElementById('employee-id').value = '';
+  document.querySelectorAll('#employee-settore-checks input').forEach(cb => cb.checked = false);
   modalEyebrow.textContent = 'Nuove credenziali';
   modalTitle.textContent = 'Crea Credenziali';
   submitLabel.textContent = 'Crea Credenziali';
@@ -114,6 +111,10 @@ function openEditModal(e) {
   document.getElementById('employee-nickname').value = e.nickname;
   document.getElementById('employee-telegram').value = e.telegram || '';
   document.getElementById('employee-role').value = e.role_id || '';
+  const settoriSet = new Set(e.settori || []);
+  document.querySelectorAll('#employee-settore-checks input').forEach(cb => {
+    cb.checked = settoriSet.has(cb.value);
+  });
   passwordInput.value = '';
   passwordInput.required = false;
   passwordHint.textContent = '(lascia vuoto per non cambiarla)';
@@ -135,6 +136,7 @@ form.addEventListener('submit', async (e) => {
   let telegram = document.getElementById('employee-telegram').value.trim();
   if (telegram && !telegram.startsWith('@')) telegram = '@' + telegram;
   const roleId = document.getElementById('employee-role').value;
+  const settori = Array.from(document.querySelectorAll('#employee-settore-checks input:checked')).map(cb => cb.value);
 
   const spinner = submitBtn.querySelector('.spinner');
   submitBtn.disabled = true;
@@ -143,11 +145,11 @@ form.addEventListener('submit', async (e) => {
   let result;
   if (id) {
     result = await supabaseClient.rpc('update_employee', {
-      p_employee_id: employee.id, p_target_id: id, p_nickname: nickname, p_telegram: telegram, p_role_id: roleId, p_new_password: password || null
+      p_employee_id: employee.id, p_target_id: id, p_nickname: nickname, p_telegram: telegram, p_role_id: roleId, p_new_password: password || null, p_settori: settori
     });
   } else {
     result = await supabaseClient.rpc('create_employee', {
-      p_nickname: nickname, p_password: password, p_telegram: telegram, p_role_id: roleId, p_creator_id: employee.id
+      p_nickname: nickname, p_password: password, p_telegram: telegram, p_role_id: roleId, p_creator_id: employee.id, p_settori: settori
     });
   }
 
@@ -166,7 +168,6 @@ form.addEventListener('submit', async (e) => {
   loadEmployees();
 });
 
-// ---------- Delete modal ----------
 const deleteModal = document.getElementById('delete-modal');
 let pendingDelete = null;
 
@@ -180,15 +181,9 @@ deleteModal.addEventListener('click', (e) => { if (e.target === deleteModal) { d
 
 document.getElementById('delete-confirm').addEventListener('click', async () => {
   if (!pendingDelete) return;
-  const { data, error } = await supabaseClient.rpc('delete_employee', {
-    p_employee_id: employee.id, p_target_id: pendingDelete.id
-  });
+  const { data, error } = await supabaseClient.rpc('delete_employee', { p_employee_id: employee.id, p_target_id: pendingDelete.id });
   deleteModal.classList.add('is-hidden');
-
-  if (error || !data.ok) {
-    showToast((data && data.error) || 'Errore durante l\'eliminazione.');
-    return;
-  }
+  if (error || !data.ok) { showToast((data && data.error) || 'Errore.'); return; }
   showToast('Dipendente rimosso.');
   loadEmployees();
 });

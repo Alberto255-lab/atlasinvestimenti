@@ -76,6 +76,17 @@
       <label class="field-label">Ruolo</label>
       <select class="input" id="employee-role" required></select>
 
+      <label class="field-label">Settore (puoi selezionarne più di uno)</label>
+      <div class="settore-checks" id="employee-settore-checks">
+        <label class="settore-check"><input type="checkbox" value="Investimenti" /> Investimenti</label>
+        <label class="settore-check"><input type="checkbox" value="Edile" /> Edile</label>
+        <label class="settore-check"><input type="checkbox" value="Informatica" /> Informatica</label>
+        <label class="settore-check"><input type="checkbox" value="Grafica" /> Grafica</label>
+        <label class="settore-check"><input type="checkbox" value="Legale" /> Legale</label>
+        <label class="settore-check"><input type="checkbox" value="Editoriale" /> Editoriale</label>
+        <label class="settore-check"><input type="checkbox" value="Subaffitti" /> Subaffitti</label>
+      </div>
+
       <p class="error-text is-hidden" id="employee-error"></p>
 
       <input type="hidden" id="employee-id" value="" />

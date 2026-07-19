@@ -3,6 +3,16 @@ if (!employeeRaw) window.location.href = 'dipendente.html';
 const employee = JSON.parse(employeeRaw || '{}');
 document.getElementById('role-pill').textContent = employee.role || '—';
 
+const isDirection = employee.role === 'Direttore' || employee.role === 'Vice Direttore';
+if (!isDirection && !(employee.settori || []).includes('Subaffitti')) {
+  document.querySelector('.shop-wrap').innerHTML = `
+    <div class="empty-state" style="padding-top:4rem;">
+      <div class="empty-icon">🔒</div>
+      <p>Questa sezione è riservata al reparto Subaffitti e alla Direzione.</p>
+    </div>`;
+  throw new Error('access denied');
+}
+
 function formatCountdown(endDate) {
   const diff = new Date(endDate).getTime() - Date.now();
   if (diff <= 0) return 'Scaduto';
