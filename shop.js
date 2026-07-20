@@ -109,7 +109,7 @@ function productCardHtml(p) {
     : '';
 
   const buyButton = p.price_on_request
-    ? `<button class="btn btn-ghost auth-full" disabled style="cursor:not-allowed; opacity:0.85;">Il prezzo del seguente prodotto va concordato con un dipendente, scrivi al bot @AtlasInvestimentiBot e accordati con un dipendente!</button>`
+    ? `<button class="price-on-request-btn" disabled>Il prezzo del seguente prodotto va concordato con un dipendente, scrivi al bot @AtlasInvestimentiBot e accordati con un dipendente!</button>`
     : `<button class="btn btn-primary buy-btn auth-full" id="buy-${p.id}">
          <span>Aggiungi al carrello</span>
          <span class="spinner is-hidden"></span>
