@@ -422,3 +422,12 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ---------- Performance mobile: riduce sfarfallio su scroll ---------- */
+@media (max-width: 820px) {
+  .navbar {
+    backdrop-filter: none;
+    background: rgba(5,6,10,0.95);
+  }
+  .orb { display: none; } /* le sfere sfocate di sfondo pesano molto su mobile */
+}

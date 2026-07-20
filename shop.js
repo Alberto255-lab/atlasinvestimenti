@@ -116,7 +116,7 @@ function productCardHtml(p) {
        </button>`;
 
   return `
-    <div class="product-card reveal">
+    <div class="product-card">
       ${image}
       <div class="product-body">
         <p class="product-category">${p.category}</p>
