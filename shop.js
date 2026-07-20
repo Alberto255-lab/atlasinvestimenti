@@ -11,7 +11,8 @@ document.getElementById('btn-logout').addEventListener('click', () => {
 const loadingEl = document.getElementById('products-loading');
 const emptyEl = document.getElementById('products-empty');
 const layoutEl = document.getElementById('shop-layout');
-const sidebarNavEl = document.getElementById('sidebar-nav');
+const deptMenuToggle = document.getElementById('dept-menu-toggle');
+const deptMenuPanel = document.getElementById('dept-menu-panel');
 const sectionsEl = document.getElementById('shop-sections');
 
 // Ordine fisso dei reparti (coerente con la home page)
@@ -27,6 +28,7 @@ async function loadProducts() {
   }
 
   layoutEl.classList.remove('is-hidden');
+  deptMenuToggle.parentElement.classList.remove('is-hidden');
 
   // Raggruppo i prodotti per reparto (categoria)
   const byDept = {};
@@ -36,8 +38,8 @@ async function loadProducts() {
     byDept[p.category].push(p);
   });
 
-  // Sidebar di navigazione
-  sidebarNavEl.innerHTML = DEPARTMENTS.map(d => `<a href="#dept-${slug(d)}" class="sidebar-link" data-dept="${d}">${d}</a>`).join('');
+  // Menu a tendina dei reparti
+  deptMenuPanel.innerHTML = DEPARTMENTS.map(d => `<a href="#dept-${slug(d)}" class="dept-menu-link" data-dept="${d}">${d}</a>`).join('');
 
   // Sezioni prodotti, una per reparto
   sectionsEl.innerHTML = DEPARTMENTS.map(dept => {
@@ -58,35 +60,35 @@ async function loadProducts() {
     document.getElementById(`buy-${p.id}`)?.addEventListener('click', () => handleAddToCart(p));
   });
 
-  // Click sidebar: scroll fluido alla sezione
-  sidebarNavEl.querySelectorAll('.sidebar-link').forEach(link => {
+  // Click su un reparto nel menu: scorre fino alla sezione e chiude il menu
+  deptMenuPanel.querySelectorAll('.dept-menu-link').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       document.querySelector(link.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeDeptMenu();
     });
   });
-
-  setupScrollSpy();
 }
 
 function slug(text) {
   return text.toLowerCase().replace(/\s+/g, '-');
 }
 
-// Evidenzia nella sidebar la sezione attualmente visibile durante lo scroll
-function setupScrollSpy() {
-  const sections = document.querySelectorAll('.dept-section');
-  const links = document.querySelectorAll('.sidebar-link');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
-      }
-    });
-  }, { rootMargin: '-100px 0px -70% 0px' });
-  sections.forEach(s => observer.observe(s));
+// ---------- Apertura/chiusura menu reparti ----------
+function openDeptMenu() {
+  deptMenuPanel.classList.remove('is-hidden');
+  deptMenuToggle.classList.add('is-open');
 }
+function closeDeptMenu() {
+  deptMenuPanel.classList.add('is-hidden');
+  deptMenuToggle.classList.remove('is-open');
+}
+deptMenuToggle.addEventListener('click', () => {
+  deptMenuPanel.classList.contains('is-hidden') ? openDeptMenu() : closeDeptMenu();
+});
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dept-menu-wrap')) closeDeptMenu();
+});
 
 function productCardHtml(p) {
   const image = p.image_url
